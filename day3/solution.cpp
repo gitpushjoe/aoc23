@@ -5,6 +5,8 @@
 #include <string>
 #include <unistd.h>
 #include <set>
+#include "../performance/timer.h"
+
 
 std::array<int, 2> add_points(const std::array<int, 2>& point1, const std::array<int, 2>& point2) {
 	return std::array<int, 2>{point1[0] + point2[0], point1[1] + point2[1]};
@@ -57,6 +59,7 @@ std::vector<std::string> parse() {
 
 int solution1() {
 	std::vector<std::string> lines { parse() };
+	Timer start;
 	int res = 0;
 	for (int row = 0; row < lines.size(); row++) {
 		std::string l = lines[row];
@@ -79,6 +82,7 @@ int solution1() {
 
 int solution2() {
 	std::vector<std::string> lines { parse() };
+	Timer start;
 	int res = 0;
 	for (int row = 0; row < lines.size(); row++) {
 		std::string l = lines[row];

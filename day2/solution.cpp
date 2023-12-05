@@ -1,9 +1,12 @@
+// Note: Performance metrics include parsing time
+
 #include <algorithm>
 #include <iostream>
 #include <unordered_map>
 #include <sstream>
 #include <string>
 #include <cassert>
+#include "../performance/timer.h"
 
 int solution1() {
 	int result = 0;
@@ -16,6 +19,7 @@ int solution1() {
 	std::string word;
 	int game = 1;
 	int not_possible_sum = 0;
+	Timer start;
 	while (std::getline(std::cin, curr, '\n')) {
 		std::istringstream stream(curr + ';');
 		stream >> word;
@@ -49,6 +53,7 @@ int solution1() {
 
 int solution2() {
 	int result = 0;
+	Timer start;
 	std::unordered_map<std::string, int> bag{
 		{"red", 12},
 		{"green", 13},
@@ -56,7 +61,7 @@ int solution2() {
 	};
 	std::string curr;
 	std::string word;
-	int res;
+	int res = 0;
 	while (std::getline(std::cin, curr, '\n')) {
 		std::istringstream stream(curr + '!');
 		stream >> word;

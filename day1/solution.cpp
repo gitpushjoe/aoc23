@@ -1,12 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include "../performance/timer.h"
 
 int solution1() {
 	std::vector<std::string> lines;
 	for (std::string line; std::getline(std::cin, line);) {
 		lines.push_back(line);
 	}
+	Timer start;
 	int result = 0;
 	int digit = 0;
 	std::vector<int> number{0, 0};
@@ -26,6 +28,12 @@ int solution1() {
 }
 
 int solution2() {
+	std::string word;
+	char c;
+	while (std::cin.get(c)) {
+		word += c;
+	}
+	Timer start;
 	auto static words = new std::pair<std::string, int>[10] {
 		{"one", 0},
 		{"two", 0},
@@ -37,15 +45,14 @@ int solution2() {
 		{"eight", 0},
 		{"nine", 0},
 	};
-	char c;
-	int result = 0;
-	std::vector<int> digits;
 	auto reset_words = [&]() {
 		for (int i = 0; i < 9; i++) {
 			words[i].second = 0;
 		}
 	};
-	while (std::cin.get(c)) {
+	int result = 0;
+	std::vector<int> digits;
+	for (auto c : word) {
 		if (c == '\n') {
 			result += (digits[0] * 10) + digits[digits.size() - 1];
 			digits.clear();
