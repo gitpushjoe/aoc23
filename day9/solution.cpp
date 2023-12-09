@@ -19,9 +19,9 @@ auto parse() {
 	return out;
 }
 
-inline long long factorial(long long n) {
-	long long out = 1;
-	for (int i = 2; i <= n; i++) {
+inline __int128 factorial(size_t n) {
+	__int128 out = 1;
+	for (size_t i = 2; i <= n; i++) {
 		out *= i;
 	}
 	return out;
@@ -34,15 +34,14 @@ long long nchoosek(size_t n, size_t k) {
 long long solution1() {
 	auto input = parse();
 	Timer start;
-	long long out = 0;
+	__int128 out = 0;
 	for (const auto& line: input) {
 		int item_count = line.size();
-		long long diagonal_sum = 0;
+		__int128 diagonal_sum = 0;
 		for (int diagonal = 0; diagonal < item_count; diagonal++) {
-			diagonal_sum = 0;
-			for (int row = diagonal; row < item_count; row++) {
-				diagonal_sum += nchoosek(row, diagonal);
-			}
+			size_t r = diagonal;
+			size_t k = item_count - diagonal;
+			diagonal_sum = (k * nchoosek(k + r, k)) / (r + 1);
 			out += diagonal_sum * line[line.size() - 1 - diagonal] * (diagonal % 2 ? -1 : 1);
 		}
 	}
@@ -52,15 +51,14 @@ long long solution1() {
 long long solution2() {
 	auto input = parse();
 	Timer start;
-	long long out = 0;
+	__int128 out = 0;
 	for (const auto& line: input) {
 		int item_count = line.size();
-		long long diagonal_sum = 0;
+		__int128 diagonal_sum = 0;
 		for (int diagonal = 0; diagonal < item_count; diagonal++) {
-			diagonal_sum = 0;
-			for (int row = diagonal; row < item_count; row++) {
-				diagonal_sum -= nchoosek(row, diagonal);
-			}
+			size_t r = diagonal;
+			size_t k = item_count - diagonal;
+			diagonal_sum = (k * nchoosek(k + r, k)) / (r + 1);
 			out += diagonal_sum * line[diagonal] * (diagonal % 2 ? 1 : -1);
 		}
 	}
